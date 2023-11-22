@@ -4,6 +4,7 @@ root = Tk()
 root.title("Settings")
 root.geometry("300x400")
 root['bg'] = '#873e23'
+root.resizable(False, False)
 
 speed = 10
 r = 50
