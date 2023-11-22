@@ -6,7 +6,7 @@ import database
 
 pygame.init()
 
-white = (255, 255, 255)
+white = (230, 255, 255)
 yellow = (255, 255, 102)
 black = (0, 0, 0)
 red = (213, 50, 80)
@@ -20,6 +20,7 @@ dis_height = 400
 
 dis = pygame.display.set_mode((dis_width, dis_height))
 pygame.display.set_caption('Snake')
+pygame.display.set_icon(pygame.image.load("img/icon.png"))
 
 clock = pygame.time.Clock()
 
@@ -28,13 +29,13 @@ player_name = auth.n
 snake_block = 10
 snake_speed = configurations.speed
 
-font_style = pygame.font.SysFont("bahnschrift", 25)
-score_font = pygame.font.SysFont("comicsansms", 35)
+font_style = pygame.font.Font("fonts/Roboto-Bold.ttf", 25)
+score_font = pygame.font.Font("fonts/Roboto-Italic.ttf", 25)
 
 
 def Your_score(score):
     value = score_font.render(f"{player_name}'s Score: " + str(score), True, yellow)
-    dis.blit(value, [0, 0])
+    dis.blit(value, [230, 0])
 
 
 def our_snake(snake_block, snake_list):
@@ -70,7 +71,7 @@ def gameLoop():
 
         while game_close == True:
             dis.fill(blue)
-            message("You Lost! Press C-Play Again or Q-Quit", red)
+            message("You Lost! Press R - Re-play or E - Exit", red)
             message_qr("You can check results here:", "#34eb58")
             dis.blit(qr_code, (220, 250))
             Your_score(Length_of_snake - 1)
@@ -79,11 +80,11 @@ def gameLoop():
 
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_q:
+                    if event.key == pygame.K_e:
                         game_over = True
                         game_close = False
                         database.add_score(player_name, str(Length_of_snake - 1))
-                    if event.key == pygame.K_c:
+                    if event.key == pygame.K_r:
                         gameLoop()
 
         for event in pygame.event.get():
